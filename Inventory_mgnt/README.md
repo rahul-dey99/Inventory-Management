@@ -1,0 +1,1 @@
+ # This is an basic Inventory system using django.
