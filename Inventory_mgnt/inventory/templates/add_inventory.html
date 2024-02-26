@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br><br>
+<h1>Add Inventory</h1>
+<div class="container w-50 card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+          <input type="text" class="form-control" name="inventory_name" placeholder="Inventory Name">
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" name="inventory_type" placeholder="Inventory Type">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="inventory_desc" placeholder="Inventory Description">
+        </div>
+        <a href="{% url 'add_inventory' %}"><button type="submit" class="btn btn-primary">Add Inventory</button></a>
+    </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Add Products</h1>
+<div class="container w-50 card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <input type="text" class="form-control" name="product_name" placeholder="Product Name">
+        </div>
+        <div class="mb-3">
+          <input type="text" class="form-control" name="product_description" placeholder="Product Description">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="product_in_inventory" placeholder="Number of Product">
+        </div>
+        <div class="mb-3">
+            <input type="file" class="form-control" name="product_image" placeholder="Product Image">
+        </div>
+        <a href="{% url 'products' %}" class="btn btn-secondary">Back</a>
+        <a href="{% url 'add_product' %}"><button type="submit" class="btn btn-primary">Add Product</button></a>
+    </form>
+    </div>
+
+{% endblock %}
