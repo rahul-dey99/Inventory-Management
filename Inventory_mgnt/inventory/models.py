@@ -9,8 +9,12 @@ class Inventory(models.Model):
         return f'{self.inventory_name}'
 
 class Product(models.Model):
-    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE, null=True) 
+    inventory = models.ForeignKey(Inventory, on_delete=models.CASCADE) 
     product_name = models.CharField(max_length=150)
     product_description = models.TextField(default=None)
     num_in_inventory = models.IntegerField(default=0)
     product_image = models.ImageField(upload_to='product_img/', null=True)
+
+
+    def __str__(self):
+        return f'{self.product_name}'

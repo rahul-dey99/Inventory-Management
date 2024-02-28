@@ -22,11 +22,10 @@
                     <h5 class="card-title">{{ inventory.inventory_name }}</h5>
                     <h6 class="card-subtitle mb-2 text-body-secondary">{{ inventory.inventory_type }}</h6>
                     <p class="card-text">{{ inventory.inventory_description }}</p>
-                    <a href="{% url 'add_product' %}" class="btn btn-warning">Add Products</a>
-                    <a href="{% url 'products' %}" class="btn btn-primary">See Products</a>
+                    <a href="{% url 'add_product' inventory.id %}" class="btn btn-warning">Add Products</a>
+                    <a href="{% url 'products' pk=inventory.id %}" class="btn btn-primary">See Products</a>
                     <a href="{% url 'update_inventory' pk=inventory.id %}" class="btn btn-secondary">Update Inventory</a> 
                     <a href="{% url 'delete_inventory' pk=inventory.id %}" class="btn btn-danger">Delete Inventory</a>    
-                     <!-- inventory.id -->
                 </div>
             </div>
         </div>

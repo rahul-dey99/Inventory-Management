@@ -108,34 +108,50 @@ def delete_inventory(request, pk):
     
 
 #For the products page.
-def products(request):
-    products = Product.objects.all()
-    return render(request, 'products.html', {'products':products})
+def products(request, pk):
+    if request.user.is_authenticated:
+        inventory = Inventory.objects.get(id=pk)
+        products = Product.objects.filter(inventory=inventory)
+        return render(request, 'products.html', {'products':products})
+    else:
+        messages.success(request, "You must login to see products.")
+        return redirect('products')
 
 #To add products in an Inventory.
-def add_product(request):
+def add_product(request, pk=None):
+    inventory = Inventory.objects.get(id=pk)
+
     if request.method == 'POST':
         data = request.POST
 
+        inventory = inventory,
         product_name = data.get('product_name')
         product_description = data.get('product_description')
         products_in_inventory = data.get('product_in_inventory')
         product_image = request.FILES.get('product_image')
 
         Product.objects.create(
+            inventory = inventory[0],
             product_name = product_name,
             product_description = product_description,
             num_in_inventory = products_in_inventory,
             product_image = product_image,
         )
         messages.success(request, "Product added succesfully.")
-        return redirect('products')
+        new_link = f'/products/{pk}'
+        return redirect(new_link)
 
-    return render(request, 'add_product.html', {})
+    return render(request, 'add_product.html', {'inventory':'inventory'})
 
 #To delete the products
-def delete_product(request, pk):
-    prduct_to_be_deleted = Product.objects.get(id=pk)
-    prduct_to_be_deleted.delete()
-    messages.success(request, "Product has been deleted.")
-    return redirect('products')
+def delete_product(request, pk=None):
+    if request.user.is_authenticated:
+        product_to_be_deleted = Product.objects.get(id=pk)
+        ipk = product_to_be_deleted.inventory.id
+        product_to_be_deleted.delete()
+        messages.success(request, "Product has been deleted.")
+        return redirect(f'http://127.0.0.1:8000/products/{ipk}', status=303)      #redirecting to the given link instead of the wrong path
+        # return redirect(f'/products/{ipk}')
+    else:
+        messages.success(request, "You must login to delete records.")
+        return redirect('products')

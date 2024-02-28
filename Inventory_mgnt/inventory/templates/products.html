@@ -23,21 +23,15 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+              <h5 class="card-title">{{ product.product_name }}</h5>
+              <p class="card-text">{{ product.product_description }}</p>
+              <p class="card-text"><small class="text-body-secondary"> {{ product.num_in_inventory }} Pieces availble.</small></p>
               <a href="{% url 'inventory' %}" class="btn btn-secondary">Back</a>
-                    <a href="{% url 'add_product' %}" class="btn btn-warning">Add Products</a>
-                    <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Delete</a>
+              <a href="{% url 'delete_product' pk=product.id %}" class="btn btn-danger">Delete</a>
             </div>
           </div>
         </div>
-      </div>
-
-
-
-
-   
+      </div>   
     <br><br>
     {% endfor %}
     {% endif %}
