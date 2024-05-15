@@ -2,6 +2,7 @@
 
 {% block content %}
 <br><br>
+<div class="container w-50 card shadow-lg p-3 mb-5 bg-body-tertiary rounded text-center text-center">
 {% if messages %}
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
     {% for message in messages %}
@@ -10,5 +11,10 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
-<h1>this is home</h1>
+<h1>this is home
+
+    <h2>send email</h2>
+    <button><a href="{% url 'send_mail' %}">Send mail</a></button>
+</h1>
 {% endblock %}
+</div>

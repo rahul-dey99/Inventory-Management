@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import RegisterUserForm
 from .models import Inventory, Product
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def home(request):
@@ -150,8 +152,21 @@ def delete_product(request, pk=None):
         ipk = product_to_be_deleted.inventory.id
         product_to_be_deleted.delete()
         messages.success(request, "Product has been deleted.")
-        return redirect(f'http://127.0.0.1:8000/products/{ipk}', status=303)      #redirecting to the given link instead of the wrong path
+        return redirect(f'http://127.0.0.1:8000/products/{ipk}', status=303)      #redirecting to the given link instead of the wrong path. status=303 updates the whole url
         # return redirect(f'/products/{ipk}')
     else:
         messages.success(request, "You must login to delete records.")
         return redirect('products')
+    
+
+def send_email(request):
+    send_email_to_client()
+    return redirect('/')
+
+def send_email_to_client():
+    subject = "OTP for verification"
+    message = "verify your account using the OTP 899089 valid for 10 minutes."
+    from_email = settings.EMAIL_HOST_USER
+    recipient_list = ['novaboj765@dacgu.com']
+
+    send_mail(subject, message, from_email, recipient_list, fail_silently=False)

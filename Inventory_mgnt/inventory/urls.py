@@ -20,6 +20,7 @@ urlpatterns = [
     path('delete-inventory/<int:pk>', views.delete_inventory, name='delete_inventory'),
     path('delete-product/<int:pk>', views.delete_product, name='delete_product'),
     path('delete-product/', views.delete_product, name='delete_product'),
+    path('send/', views.send_email, name='send_mail'),
 ]
 
 if settings.DEBUG:
